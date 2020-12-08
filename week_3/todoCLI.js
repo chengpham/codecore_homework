@@ -42,6 +42,11 @@ const todo = () => {
                         console.log(`List saved to ${answer}`)
                         return todo()
                     } 
+                    if(answer.length==0) {
+                        fs.writeFileSync(`./myTodos.json`, JSON.stringify(todoList))
+                        console.log(`List saved to myTodos.json`)
+                        return todo()
+                    }
                     saveList()
                 })
             }
