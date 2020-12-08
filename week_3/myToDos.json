@@ -1,6 +1,1 @@
-[
-  { "completed": true, "title": "Feed the raptops" },
-  { "completed": false, "title": "Have lunch" },
-  { "completed": false, "title": "Go see Deadpool 2" },
-  { "completed": false, "title": "Write a script to fix the climate" }
-]
+[{"title":"wash the dishes","completed":true},{"title":"make the bed","completed":false}]
