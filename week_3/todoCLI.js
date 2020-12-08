@@ -6,21 +6,19 @@ let myfile = [];
 if (/.\.json$/.test(process.argv.slice(2))){
     myfile = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'))  
 } 
-// fs.writeFileSync('./filename.json', JSON.stringify( todoList ))
-
 const todoList = myfile.length>0 ? myfile : []
 console.log(`Welcome to Todo CLI!\n--------------------\n`)
 const todo = () => {
     rl.question(`(v) View • ( n ) New • (cX) Complete • (dX) Delete • (s) Save • (q) Quit\n> `, (answer) => {
         if (answer.toLowerCase()=='q'){
-        console.log(`See you soon! `, emoji.get('smile'))
+        console.log(`See you soon! `, emoji.get('smile'), String.fromCodePoint('128512'))
         return rl.close()
         }
         if (answer.toLowerCase()=='v'){
             if (todoList.length==0){
                 console.log('List is empty...')
             } else {
-            todoList.map((i,j)=>console.log(`${j} [${i.completed?emoji.get('heavy_check_mark'):''}] ${i.title}\n`))
+            todoList.map((i,j)=>console.log(`${j} [${i.completed?'\u2713':''}] ${i.title}\n`))
             }
         }
         if (answer.toLowerCase()=='n'){
