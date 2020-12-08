@@ -60,7 +60,6 @@ const todo = () => {
             console.log(`Deleted "${todoList[answer[1]].title}"`)
             todoList.splice(answer[1],1)
         }
-
         todo()
     })
 }
