@@ -1,5 +1,4 @@
 const readline = require('readline')
-const emoji = require('node-emoji')
 const fs = require('fs')
 const rl = readline.createInterface({input: process.stdin, output: process.stdout})
 let myfile = [];
@@ -11,7 +10,7 @@ console.log(`Welcome to Todo CLI!\n--------------------\n`)
 const todo = () => {
     rl.question(`(v) View • ( n ) New • (cX) Complete • (dX) Delete • (s) Save • (q) Quit\n> `, (answer) => {
         if (answer.toLowerCase()=='q'){
-        console.log(`See you soon! `, emoji.get('smile'), String.fromCodePoint('128512'))
+        console.log(`See you soon! `, String.fromCodePoint('128512'))
         return rl.close()
         }
         if (answer.toLowerCase()=='v'){
