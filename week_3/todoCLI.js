@@ -9,18 +9,18 @@ const todoList = myfile.length>0 ? myfile : []
 console.log(`Welcome to Todo CLI!\n--------------------\n`)
 const todo = () => {
     rl.question(`(v) View • ( n ) New • (cX) Complete • (dX) Delete • (s) Save • (q) Quit\n> `, (answer) => {
-        if (answer.toLowerCase()=='q'){
-        console.log(`See you soon! `, String.fromCodePoint('55357'), String.fromCodePoint('128512'))
+        if (/^[qQ]$/.test(answer)){
+        console.log(`See you soon! `, String.fromCodePoint('128512'))
         return rl.close()
         }
-        if (answer.toLowerCase()=='v'){
+        if (/^[vV]$/.test(answer)){
             if (todoList.length==0){
                 console.log('List is empty...')
             } else {
             todoList.map((i,j)=>console.log(`${j} [${i.completed?'\u2713':''}] ${i.title}\n`))
             }
         }
-        if (answer.toLowerCase()=='n'){
+        if (/^[nN]$/.test(answer)){
             const newItem = ()=>{
                 rl.question('What?\n> ', (answer)=>{
                     if(answer){
@@ -33,12 +33,22 @@ const todo = () => {
             }
             newItem()
         }
-        if (answer.toLowerCase()=='s'){
+        if (/^[sS]$/.test(answer)){
             const saveList = ()=>{
-                rl.question('Where?\n> ', (answer)=>{
-                    if(/.\.json$/.test(answer)){
+                rl.question('Where? Default: myTodos.json\n> ', (answer)=>{
+                    if(/^[a-zA-Z\d]+\.json$/.test(answer)){
                         fs.writeFileSync(`./${answer}`, JSON.stringify(todoList))
                         console.log(`List saved to ${answer}`)
+                        return todo()
+                    }
+                    if(/^[a-zA-Z\d]+\.[a-zA-Z]*$/.test(answer)){
+                        fs.writeFileSync(`./${answer.slice(0,answer.indexOf('.'))}.json`, JSON.stringify(todoList))
+                        console.log(`List saved to ${answer.slice(0,answer.indexOf('.'))}.json`)
+                        return todo()
+                    }
+                    if(/^[a-zA-Z\d]+$/.test(answer)){
+                        fs.writeFileSync(`./${answer}.json`, JSON.stringify(todoList))
+                        console.log(`List saved to ${answer}.json`)
                         return todo()
                     } 
                     if (answer.length==0){
@@ -51,11 +61,11 @@ const todo = () => {
             }
             saveList()
         }
-        if (answer[0].toLowerCase()=='c'){
+        if (/^[cC]\d$/.test(answer) && answer[1]<todoList.length){
             console.log(`Completed "${todoList[answer[1]].title}"`)
             todoList[answer[1]].completed = true
         }
-        if (answer[0].toLowerCase()=='d'){
+        if (/^[dD]\d$/.test(answer) && answer[1]<todoList.length){
             console.log(`Deleted "${todoList[answer[1]].title}"`)
             todoList.splice(answer[1],1)
         }
@@ -65,4 +75,3 @@ const todo = () => {
 }
 todo()
 // CREATED BY CHENG PHAM FOR CODECORE HOMEWORK WEEK 3
-// UPDATED SAVE FUNCTION
