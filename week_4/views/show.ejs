@@ -1,0 +1,58 @@
+<%- include('./partials/header') %>
+
+
+<div class='card mb-4'>
+    <div class='card-body'>
+        <div class="size-title"><%= cohorts.name%></div> 
+        <p class='card-test'> <%= cohorts.members%> </p>
+        <hr><p>Method</p>
+        <form action="/cohorts/<%= cohorts.id %>" method="POST">
+            <div class="radio">
+                <label><input type="radio" name="method" name="team_count" value="team_count" <%= method=="team_count"?'checked':false %> ><span class='pad-l' >Team Count</span></label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="method" name="num_per_team" value="num_per_team" <%= method=="num_per_team"?'checked':false %> ><span class='pad-l'>Number Per Team</span></label>
+            </div><br/>
+            <div class="form-group">
+                <label for="quantity">Quantity</label><br/>
+                <input class='form-control' type="number" id="quantity" name="quantity" min="1" max="<%= cohorts.members.split(',').length %>" value="<%= quantity?quantity:'' %>" required/><br/>
+            </div>
+            <div class="form-group">
+                <input type='submit' value='Assign Teams' class='btn btn-outline-primary btn-block form-control'>
+            </div><br>
+        </form>
+        <div class='cards'>
+            <ol start='0' class="list-group list-group-flush">
+                <% if (method && quantity) { %>
+                    <li class="list-group-item myhash"><span class="hash">#</span><span>Members</span></li>
+                    <% Array.prototype.numTeam = function(n){ %>
+                        <% if ( !this.length ) { return [] } %>
+                        <% return [ this.slice( 0, n ) ].concat( this.slice(n).numTeam(n) ) } %>
+                    <% Array.prototype.teamCount = function(n) { %>
+                        <% teams = [] %>
+                        <% while (n > 0) { %>
+                        <% teams.push(this.splice(0, Math.floor(this.length/n))) %>
+                        <% n--  } return teams } %>
+                    <% let cohort = cohorts.members.replace(/\,\s+/g,', ').split(',').sort(()=>Math.random()-0.5) %>
+                    <% if (method =="num_per_team"){ %>
+                        <% for (c of cohort.numTeam(parseInt(quantity)) ) { %>
+                            <li class="list-group-item"><%= c.join(', ') %></li>
+                        <% } %>
+                    <% } else { %>
+                        <% for (c of cohort.teamCount(parseInt(quantity)) ) { %>
+                            <li class="list-group-item"><%= c.join(', ') %></li>
+                        <% } %>
+                    <% } %>
+                <% } %>
+            </ol>
+        </div><br>
+        <a href='/cohorts/<%= cohorts.id %>/edit' class='btn btn-outline-success btn-block form-control'>Edit Teams</a><br><br>
+        <form action='/cohorts/<%= cohorts.id %>' method='POST'>
+            <input type='hidden' name='_method' value='DELETE'>
+            <input type='submit' class='btn btn-outline-danger btn-block form-control' value='Delete'>
+        </form>
+    </div>
+</div>
+
+
+<%- include('./partials/footer') %>

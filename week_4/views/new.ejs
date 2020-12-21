@@ -1,0 +1,15 @@
+<%- include('./partials/header') %>
+
+<form action='/cohorts/new' method='POST'>
+    <div class='form-group'>
+        <label for="logo_url">Logo Url</label><br/>
+        <input class='form-control' type="text" id="logo_url" name="logo_url" placeholder="eg. https://www.example.com/some.png"/><br/>
+        <label for="name">Name</label><br/>
+        <input class='form-control'type="text" id="name" name="name" placeholder="Flying Funks" autocomplete="off"  autocapitalize="off" spellcheck="false" required/><br/>
+        <label for="members">Member</label><br/>
+        <textarea class='form-control' name='members' cols='60' rows='5' placeholder='Jon Snow, Daenerys, Melisandre, Arya Stark' autocomplete="off"  autocapitalize="off" spellcheck="false" required></textarea><br/> 
+    </div> 
+    <input type='submit' value='Submit' class='btn btn-outline-primary'>
+</form>
+
+<%- include('./partials/footer') %>
