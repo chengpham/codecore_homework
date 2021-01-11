@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    .round-circle-profile{
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      margin: 10px;
+    }
+    .size-title{
+      font-size: 25px;
+      font-weight: bold;
+    }
+    .pad-l{
+      padding-left: 10px;
+    }
+    .list-group-item {
+      display: list-item !important;
+      margin-left:50px;
+    }
+    ol > li::marker {
+      font-weight: bold;
+    }
+    .hash{
+      font-weight: bold;
+      margin: 0px 23px 0px -33px;
+    }
+    .myhash{
+      list-style: none;
+      font-weight: bold;
+    }
+  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chengs Week 4 Homework - Team Picker</title>
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+</head>
+<body>
+  <main class='container'>
+  <nav class="navbar navbar-expand navbar-blue justify-content-between">
+  <a class="navbar-brand mr-auto">
+    <%= team ? "Super Team Picker": "Team Picker" %></a>
+    <ul class="navbar-nav  ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/cohorts">Cohorts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/cohorts/new">New Cohorts</a>
+      </li>
+    </ul>
+</nav>
+
+    
